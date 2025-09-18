@@ -18,4 +18,4 @@
 
 Изменения в template.html и meta_data.json пересобирают сайт автоматически.
 
-## Сайт
+[Сайт](https://azad0645.github.io/online-books/)

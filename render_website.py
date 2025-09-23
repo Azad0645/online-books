@@ -24,11 +24,11 @@ def render(json_path: str = 'meta_data.json'):
     env = Environment(loader=FileSystemLoader('.'), autoescape=True)
     template = env.get_template('template.html')
 
-    os.makedirs(os.path.join('docs', 'pages'), exist_ok=True)
+    os.makedirs(os.path.join('www', 'pages'), exist_ok=True)
 
     for page_num, books_chunk in enumerate(pages, start=1):
         output_filename = f'index{page_num}.html'
-        output_path = os.path.join('docs', 'pages', output_filename)
+        output_path = os.path.join('www', 'pages', output_filename)
 
         html_output = template.render(
             books=books_chunk,
@@ -40,7 +40,7 @@ def render(json_path: str = 'meta_data.json'):
             my_file.write(html_output)
 
     redirect_html = '<meta http-equiv="refresh" content="0; url=pages/index1.html">'
-    with open(os.path.join('docs', 'index.html'), 'w', encoding='utf-8') as f:
+    with open(os.path.join('www', 'index.html'), 'w', encoding='utf-8') as f:
         f.write(redirect_html)
 
 
@@ -51,7 +51,7 @@ def serve(json_path: str = 'meta_data.json'):
     server.watch(json_path, lambda: render(json_path=json_path))
     server.watch('template.html', lambda: render(json_path=json_path))
 
-    server.serve(root='docs', open_url_delay=1, default_filename='index.html')
+    server.serve(root='www', open_url_delay=1, default_filename='index.html')
 
 
 def main():
